@@ -1,0 +1,4 @@
+# Any annoying files that text editors create while we edit
+*.swp
+*~
+
