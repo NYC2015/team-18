@@ -15,6 +15,8 @@ class Message(ndb.Model):
 
 
 class Post(ndb.Model):
-	body = ndb.StringProperty()
-	originalPoster = ndb.StringProperty()
-	points = ndb.IntegerProperty()
+	post = ndb.StringProperty()
+	user = kca_user.username
+	votes = ndb.IntegerProperty()
+	comments = ndb.JsonProperty()
+
