@@ -70,13 +70,6 @@ class populateDB(KCAPage):
 		# Post(title="Im so delerious",post="super tired",user_email="jdeng1234@gmail.com",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now()).put()
 		# self.response.write(p)
 
-class GetCounts(KCAPage): 
-	def get(self):
-		location_dict = {}
-		for loc in kca_user.query().fetch(): 
-			location_dict[loc.location] = 1+location_dict.get(loc.location,0)
-		self.response.write(json.dumps(location_dict))
-
 class BubbleData(KCAPage):
 	def get(self):
 		location_dict = {}
@@ -91,7 +84,6 @@ class BubbleData(KCAPage):
 
 app = webapp2.WSGIApplication([
 	('/getPosts.json', GetPosts),
-	# ('/getCounts.json',GetCounts),
 	('/populateDB',populateDB),
 	('/bubbleData.json',BubbleData),
 

@@ -46,7 +46,7 @@ $(document).ready(function() {
 			// <h2>TITLE OF POST</h2>
 			// 			<p>BODY OF POST</p>
 			// 			<h4>user</h4>
-			document.getElementById("forum").innerHTML+="<div class='postBox'><h2>"+title+"</h2>"+"<p>"+body+"</p>"+"<h4>"+OP+"</h4></div>";
+			document.getElementById("forum").innerHTML+="<div class='postBox'><h2>"+title+"</h2>"+"<h5>"+body+"</h5>"+"<h4>"+OP+"</h4></div>";
 
 			// "<p>OP:"+OP+" body: "+body+"</p>";
 		};
