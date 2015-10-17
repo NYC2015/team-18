@@ -15,6 +15,17 @@
 # limitations under the License.
 #
 import webapp2
+from google.appengine.api import users
+from google.appengine.ext import db
+
+
+class KCAPage(webapp2.RequestHandler):
+	def proceed_with_user(self, ):
+        user = users.get_current_user()
+        if not user:
+            return False
+        return True
+
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
