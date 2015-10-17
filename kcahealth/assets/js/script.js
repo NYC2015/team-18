@@ -34,8 +34,10 @@ function classes(root) {
 
 
 
-$(document).ready(function() {   
-    $.getJSON( "/getPosts.json", function (response) {
+$(document).ready(function() {
+	var lat = 0.340617;
+	var lon = 32.584360;
+    $.getJSON( "/getPosts.json?lat="+lat+"&lon="+lon, function (response) {
 		for (var i = 0; i < response.length; i++) {
 
 			OP = response[i][0];

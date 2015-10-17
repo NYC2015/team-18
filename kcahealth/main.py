@@ -20,6 +20,7 @@ from google.appengine.ext import ndb
 import json
 from kca_models import *
 import datetime
+import math
 
 class KCAPage(webapp2.RequestHandler):
 	def proceed_with_user(self, ):
@@ -34,22 +35,56 @@ class KCAPage(webapp2.RequestHandler):
 			return False
 		return True
 
+
+def distance_on_unit_sphere(lat1, lon1, lat2, lon2):
+	# Convert latitude and longitude to 
+    # spherical coordinates in radians.
+    degrees_to_radians = math.pi/180.0
+         
+    # phi = 90 - latitude
+    phi1 = (90.0 - lat1)*degrees_to_radians
+    phi2 = (90.0 - lat2)*degrees_to_radians
+         
+    # theta = longitude
+    theta1 = lon1*degrees_to_radians
+    theta2 = lon2*degrees_to_radians
+         
+    # Compute spherical distance from spherical coordinates.
+         
+    # For two locations in spherical coordinates 
+    # (1, theta, phi) and (1, theta', phi')
+    # cosine( arc length ) = 
+    #    sin phi sin phi' cos(theta-theta') + cos phi cos phi'
+    # distance = rho * arc length
+     
+    cos = (math.sin(phi1)*math.sin(phi2)*math.cos(theta1 - theta2) + 
+           math.cos(phi1)*math.cos(phi2))
+    arc = math.acos( cos )
+ 
+    # Remember to multiply arc by the radius of the earth 
+    return arc*3959
+
+
 class GetPosts(KCAPage):
 	def get(self):
 		titles = ["title1","title2","title3"]
 		bodies = ["body1","1234","qwer"]
 		originalPosters = ["aaron","Abdullah","Jason"]
 		points = [1,2,3]
-		post_list = map(lambda p:(GetUserFromEmail(p.user_email).username, p.post, 0, p.comments,p.title),Post.query().order(Post.post_time).fetch(5))
+		posts = Post.query().order(Post.post_time).fetch(5)
+		# self.response.write(self.request.get("lat"))
+		# self.response.write(self.request.get("lat"))
+		lat = float(self.request.get("lat"))
+		lon = float(self.request.get("lon"))
+		posts = filter(lambda p:distance_on_unit_sphere(lat,lon,p.lat,p.lon)<50,posts)
+		post_list = map(lambda p:(GetUserFromEmail(p.user_email).username, p.post, 0, p.comments,p.title),posts)
 		res = json.dumps(post_list)
 		# res = json.dumps(zip(originalPosters,bodies,points,titles))
 		self.response.write(res)
 
-
-
 class populateDB(KCAPage):
 	def get(self):
-		return 0
+		# return 0
 	# 	user_email = ndb.StringProperty()
 	# is_expert = ndb.BooleanProperty(default=False)
 	# username = ndb.StringProperty()
@@ -69,12 +104,12 @@ class populateDB(KCAPage):
 		upvotes = json.dumps(["abdullah@ajkhan.me","acb257@cornell.edu"])
 		downvotes = json.dumps(["jdeng1234@gmail.com","amf272@cornell.edu"])
 		comments = json.dumps([["jdeng1234@gmail.com","totally great"],["amf272@cornell.edu","this is awesome"]])
-		# Post(title="Took my pills today",post="omg I'm so great",user_email="ljh239@cornell.edu",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now()).put()
-		# Post(title="So empowered",post="team 18 number 1",user_email="amf272@cornell.edu",upvotes=downvotes,downvotes=upvotes,comments=comments,post_time=datetime.datetime.now()).put()
-		# Post(title="I feel so depressed",post="not a good day",user_email="acb257@cornell.edu",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now()).put()
-		# Post(title="Bought a new sweater today",post="it is super warm",user_email="abdullah@ajkhan.me",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now()).put()
-		Post(title="Hello",post="we are at code for good",user_email="jdeng1234@gmail.com",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now()).put()
-		# self.response.write(p)
+		Post(title="Took my pills today",post="omg I'm so great",user_email="ljh239@cornell.edu",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now(),lat=0.3140103,lon=32.5290847).put()
+		Post(title="So empowered",post="team 18 number 1",user_email="amf272@cornell.edu",upvotes=downvotes,downvotes=upvotes,comments=comments,post_time=datetime.datetime.now(),lat=0.3140103,lon=32.5290747).put()
+		Post(title="I feel so depressed",post="not a good day",user_email="acb257@cornell.edu",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now(),lat=0.3140003,lon=32.5290847).put()
+		Post(title="Bought a new sweater today",post="it is super warm",user_email="abdullah@ajkhan.me",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now(),lat=-1.961540,lon=30.113753).put()
+		Post(title="I dont want people near me to know",post="I am in rwanda",user_email="jdeng1234@gmail.com",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now(),lat=-1.961540,lon=30.113753, minDist=80).put()
+		self.response.write(0)
 
 class BubbleData(KCAPage):
 	def get(self):

@@ -25,6 +25,9 @@ class Post(ndb.Model):
 	downvotes = ndb.JsonProperty()
 	comments = ndb.JsonProperty()
 	post_time = ndb.DateTimeProperty()
+	lat = ndb.FloatProperty()
+	lon = ndb.FloatProperty()
+	minDist = ndb.FloatProperty() #minimum distance in km
 
 class Reminder(ndb.Model):
 	user = ndb.StringProperty()
