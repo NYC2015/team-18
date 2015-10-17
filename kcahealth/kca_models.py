@@ -14,6 +14,7 @@ class Message(ndb.Model):
     body = ndb.StringProperty()
 
 class Post(ndb.Model):
+	title = ndb.StringProperty()
 	post = ndb.StringProperty()
 	user = kca_user.username
 	votes = ndb.IntegerProperty()
