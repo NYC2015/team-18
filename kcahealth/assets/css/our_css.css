@@ -22,3 +22,8 @@
 	.sign-up_form {
 			max-width: 90%;
 		}
+
+.postBox{
+	background: #fff;
+	border-bottom: 1px line solid;
+}
