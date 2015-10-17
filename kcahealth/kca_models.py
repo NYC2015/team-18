@@ -20,7 +20,8 @@ class Post(ndb.Model):
 	title = ndb.StringProperty()
 	post = ndb.StringProperty()
 	user_email = ndb.StringProperty()
-	votes = ndb.IntegerProperty()
+	upvotes = ndb.JsonProperty()
+	downvotes = ndb.JsonProperty()
 	comments = ndb.JsonProperty()
 	post_time = ndb.DateTimeProperty()
 
