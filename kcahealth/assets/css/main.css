@@ -198,15 +198,15 @@
 		}
 
 		.container.\37 5\25 {
-			width: 75%;
+			width: 100%;
 		}
 
 		.container.\35 0\25 {
-			width: 50%;
+			width: 100%;
 		}
 
 		.container.\32 5\25 {
-			width: 25%;
+			width: 100%;
 		}
 
 		.container {
@@ -1335,7 +1335,7 @@
 
 	@media screen and (max-width: 736px) {
 
-		.row > * {
+/*		.row > * {
 			padding: 30px 0 0 30px;
 		}
 
@@ -1413,7 +1413,7 @@
 
 		.row.uniform.\32 5\25 {
 			margin: -7.5px 0 -1px -7.5px;
-		}
+		}*/
 
 		.\31 2u\28mobile\29, .\31 2u\24\28mobile\29 {
 			width: 100%;
@@ -1654,12 +1654,12 @@
 		padding-bottom: 2em;
 	}
 
-	header.special {
+/*	header.special {
 		margin-bottom: 5em;
 		padding-top: 7em;
 		position: relative;
 		text-align: center;
-	}
+	}*/
 
 		header.special:before, header.special:after {
 /*			border-bottom: solid 1.5px;

@@ -22,8 +22,20 @@
 	.sign-up_form {
 			max-width: 90%;
 		}
+	}
 
 .postBox{
 	background: #fff;
 	border-bottom: 1px line solid;
+	text-align: left;
+	max-width: 100%;
+	padding-left: 1rem;
+}
+
+.postBox h4{
+	color: #30dbbd;
+}
+
+.postBox h2{
+	font-weight: 500;
 }
