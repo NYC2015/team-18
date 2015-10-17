@@ -23,6 +23,10 @@ handlers:
   static_files: calendar.html
   upload: calendar.html
 
+- url: /expert.html
+  static_files: expert.html
+  upload: expert.html
+
 - url: /ourStory.html
   static_files: ourStory.html
   upload: ourStory.html
