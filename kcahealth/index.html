@@ -1,8 +1,26 @@
 <html>
 <head>
-	
+<script type="text/javascript"
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBujptg1kd2GmGiz28IFERewc203QF7MBM&sensor=false">
+                </script>
+                <script type="text/javascript"
+                        src="http://code.jquery.com/jquery-latest.min.js">
+                </script>
 </head>
 <body>
-something
+<div id="forum">
+	
+</div>
+<script type="text/javascript">
+
+	$.getJSON( "/getPosts.json", function (response) {
+		for (var i = 0; i < response.length; i++) {
+			OP = response[i][0];
+			body = response[i][1];
+			document.getElementById("forum").innerHTML+="<p>OP:"+OP+" body: "+body+"</p>";
+		};
+	})
+</script>
 </body>
 </html>
+
