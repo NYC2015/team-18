@@ -154,7 +154,10 @@ class GetStory(KCAPage):
 		return 0
 
 class GetExperts(KCAPage):
-	def get
+	def get(self):
+		experts = kca_user.query(kca_user.is_expert == True).fetch()
+		res = map(lambda x: (x.username,x.user_email),experts)
+		self.response.write(json.dumps(res))
 
 app = webapp2.WSGIApplication([
 	('/getPosts.json', GetPosts),
