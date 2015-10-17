@@ -16,27 +16,27 @@
 #
 import webapp2
 from google.appengine.api import users
-from google.appengine.ext import db
+from google.appengine.ext import ndb
 
 
 class KCAPage(webapp2.RequestHandler):
 	def proceed_with_user(self, ):
-        user = users.get_current_user()
-        if not user:
-            return False
-        return True
+		user = users.get_current_user()
+		if not user:
+			return False
+		return True
+
+class GetPosts(KCAPage):
+	def get(self):
 
 
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
+		username = "hello"
+		post = "blah"
 
 
-    	username = "hello"
-    	post = "blah"
-
-
-        self.response.write("notright ")
+		self.response.write("%s,%s"%(username,post))
+		
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+	('/getPosts.json', GetPosts)
 ], debug=True)
