@@ -39,6 +39,9 @@ class GetPosts(KCAPage):
 		res = json.dumps(zip(originalPosters,bodies,points,titles))
 		self.response.write(res)
 
+class GetCounts(KCAPage): 
+	def get(self):
+		return True
 
 app = webapp2.WSGIApplication([
 	('/getPosts.json', GetPosts)

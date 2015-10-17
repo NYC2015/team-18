@@ -5,7 +5,10 @@ class kca_user(ndb.Model):
 	is_expert = ndb.BooleanProperty(default=False)
 	username = ndb.StringProperty()
 	password = ndb.StringProperty()
-
+	location = ndb.StringProperty()
+	age = ndb.IntegerProperty()
+	interests = ndb.JsonProperty()
+	gender = ndb.StringProperty()
 
 #users to users
 class Message(ndb.Model):
@@ -19,6 +22,14 @@ class Post(ndb.Model):
 	user = kca_user.username
 	votes = ndb.IntegerProperty()
 	comments = ndb.JsonProperty()
+	post_time = ndb.DateTimeProperty()
+
+class Reminder(ndb.Model):
+	user = ndb.StringProperty()
+	text = ndb.StringProperty()
+	frequency_hours = ndb.IntegerProperty()
+	notifications = ndb.BooleanProperty()
+	
 
 def GetUserFromEmail(email):
 	return list(kca_user.query(kca_user.user_email==email).iter())[1]
