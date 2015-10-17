@@ -22,6 +22,10 @@
 	.sign-up_form {
 			max-width: 90%;
 		}
+
+		#storyBody div{
+			max-width: 95%;
+		}
 	}
 
 .postBox{
@@ -38,4 +42,8 @@
 
 .postBox h2{
 	font-weight: 500;
+}
+
+#storyBody div{
+	max-width: 80%;
 }
