@@ -17,7 +17,7 @@ $.getJSON( "/getExperts.json", function (response) {
 
 			expert = response[i][0];
 			email = response[i][1];
-			document.getElementById("experts").innerHTML+="<div class='postBox'><h2>"+expert+"</h2><h2>"+email+"</h2></div>";
+			document.getElementById("experts").innerHTML+="<div class='expert'><h2>"+expert+": "+email+"</h2></div>";
 		}
 	});
 })
