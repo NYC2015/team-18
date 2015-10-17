@@ -33,4 +33,4 @@ class Reminder(ndb.Model):
 	
 
 def GetUserFromEmail(email):
-	return list(kca_user.query(kca_user.user_email==email).iter())[1]
+	return list(kca_user.query(kca_user.user_email==email).iter())[0]
