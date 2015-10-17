@@ -18,6 +18,8 @@ import webapp2
 from google.appengine.api import users
 from google.appengine.ext import ndb
 import json
+from kca_models import *
+
 
 class KCAPage(webapp2.RequestHandler):
 	def proceed_with_user(self, ):
@@ -33,7 +35,7 @@ class GetPosts(KCAPage):
 		points = [1,2,3]
 		res = json.dumps(zip(bodies,originalPosters,points))
 		self.response.write(res)
-		
+
 
 app = webapp2.WSGIApplication([
 	('/getPosts.json', GetPosts)
