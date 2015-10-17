@@ -6,3 +6,4 @@ Options:
 	general info
 	settings
 	profile
+	
