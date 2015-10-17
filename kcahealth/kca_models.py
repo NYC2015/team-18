@@ -13,10 +13,11 @@ class Message(ndb.Model):
     reciever = ndb.StringProperty()
     body = ndb.StringProperty()
 
-
 class Post(ndb.Model):
 	post = ndb.StringProperty()
 	user = kca_user.username
 	votes = ndb.IntegerProperty()
 	comments = ndb.JsonProperty()
 
+def GetUserFromEmail(email):
+	return list(kca_user.query(kca_user.user_email==email).iter())[1]
