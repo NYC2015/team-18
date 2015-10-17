@@ -19,7 +19,7 @@ class Message(ndb.Model):
 class Post(ndb.Model):
 	title = ndb.StringProperty()
 	post = ndb.StringProperty()
-	user = kca_user.username
+	user_email = ndb.StringProperty()
 	votes = ndb.IntegerProperty()
 	comments = ndb.JsonProperty()
 	post_time = ndb.DateTimeProperty()
