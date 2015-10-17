@@ -35,8 +35,13 @@ function classes(root) {
 
 
 $(document).ready(function() {
+	// uganda
 	var lat = 0.340617;
 	var lon = 32.584360;
+	
+	// rwanda
+	// var lat = -1.964558;
+	// var lon = 30.104879;
     $.getJSON( "/getPosts.json?lat="+lat+"&lon="+lon, function (response) {
 		for (var i = 0; i < response.length; i++) {
 

@@ -62,7 +62,17 @@ def distance_on_unit_sphere(lat1, lon1, lat2, lon2):
     arc = math.acos( cos )
  
     # Remember to multiply arc by the radius of the earth 
-    return arc*3959
+    return arc*6378
+
+def filterPosts(lat,lon,post):
+	dist = distance_on_unit_sphere(lat,lon,post.lat,post.lon)
+	if post.minDist:
+		if dist < post.minDist:
+			return False
+
+	# if dist < 80:
+		# return True
+	return True
 
 
 class GetPosts(KCAPage):
@@ -76,7 +86,7 @@ class GetPosts(KCAPage):
 		# self.response.write(self.request.get("lat"))
 		lat = float(self.request.get("lat"))
 		lon = float(self.request.get("lon"))
-		posts = filter(lambda p:distance_on_unit_sphere(lat,lon,p.lat,p.lon)<50,posts)
+		posts = filter(lambda p:filterPosts(lat,lon,p),posts)
 		post_list = map(lambda p:(GetUserFromEmail(p.user_email).username, p.post, 0, p.comments,p.title),posts)
 		res = json.dumps(post_list)
 		# res = json.dumps(zip(originalPosters,bodies,points,titles))
@@ -109,7 +119,7 @@ class populateDB(KCAPage):
 		Post(title="I feel so depressed",post="not a good day",user_email="acb257@cornell.edu",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now(),lat=0.3140003,lon=32.5290847).put()
 		Post(title="Bought a new sweater today",post="it is super warm",user_email="abdullah@ajkhan.me",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now(),lat=-1.961540,lon=30.113753).put()
 		Post(title="I dont want people near me to know",post="I am in rwanda",user_email="jdeng1234@gmail.com",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now(),lat=-1.961540,lon=30.113753, minDist=80).put()
-		self.response.write(0)
+		# self.response.write(0)
 
 class BubbleData(KCAPage):
 	def get(self):
