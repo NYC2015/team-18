@@ -34,6 +34,11 @@ class Reminder(ndb.Model):
 	text = ndb.StringProperty()
 	frequency_hours = ndb.IntegerProperty()
 	notifications = ndb.BooleanProperty()
+
+class StoryParagraphs(ndb.Model):
+	text = ndb.StringProperty()
+	user = ndb.StringProperty()
+	post_time = ndb.DateTimeProperty()
 	
 
 def GetUserFromEmail(email):

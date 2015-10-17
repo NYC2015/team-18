@@ -81,7 +81,7 @@ class GetPosts(KCAPage):
 		bodies = ["body1","1234","qwer"]
 		originalPosters = ["aaron","Abdullah","Jason"]
 		points = [1,2,3]
-		posts = Post.query().order(Post.post_time).fetch(5)
+		posts = Post.query().order(-Post.post_time).fetch(5)
 		# self.response.write(self.request.get("lat"))
 		# self.response.write(self.request.get("lat"))
 		lat = float(self.request.get("lat"))
@@ -111,15 +111,21 @@ class populateDB(KCAPage):
 		# kca_user(user_email="jdeng1234@gmail.com",is_expert = True, username="Jason Deng", password="password",location="",age=21,gender="M").put()
 
 		# populate messages
-		upvotes = json.dumps(["abdullah@ajkhan.me","acb257@cornell.edu"])
-		downvotes = json.dumps(["jdeng1234@gmail.com","amf272@cornell.edu"])
-		comments = json.dumps([["jdeng1234@gmail.com","totally great"],["amf272@cornell.edu","this is awesome"]])
-		Post(title="Took my pills today",post="omg I'm so great",user_email="ljh239@cornell.edu",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now(),lat=0.3140103,lon=32.5290847).put()
-		Post(title="So empowered",post="team 18 number 1",user_email="amf272@cornell.edu",upvotes=downvotes,downvotes=upvotes,comments=comments,post_time=datetime.datetime.now(),lat=0.3140103,lon=32.5290747).put()
-		Post(title="I feel so depressed",post="not a good day",user_email="acb257@cornell.edu",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now(),lat=0.3140003,lon=32.5290847).put()
-		Post(title="Bought a new sweater today",post="it is super warm",user_email="abdullah@ajkhan.me",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now(),lat=-1.961540,lon=30.113753).put()
-		Post(title="I dont want people near me to know",post="I am in rwanda",user_email="jdeng1234@gmail.com",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now(),lat=-1.961540,lon=30.113753, minDist=80).put()
-		# self.response.write(0)
+		# upvotes = json.dumps(["abdullah@ajkhan.me","acb257@cornell.edu"])
+		# downvotes = json.dumps(["jdeng1234@gmail.com","amf272@cornell.edu"])
+		# comments = json.dumps([["jdeng1234@gmail.com","totally great"],["amf272@cornell.edu","this is awesome"]])
+		# Post(title="Took my pills today",post="omg I'm so great",user_email="ljh239@cornell.edu",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now(),lat=0.3140103,lon=32.5290847).put()
+		# Post(title="So empowered",post="team 18 number 1",user_email="amf272@cornell.edu",upvotes=downvotes,downvotes=upvotes,comments=comments,post_time=datetime.datetime.now(),lat=0.3140103,lon=32.5290747).put()
+		# Post(title="I feel so depressed",post="not a good day",user_email="acb257@cornell.edu",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now(),lat=0.3140003,lon=32.5290847).put()
+		# Post(title="Bought a new sweater today",post="it is super warm",user_email="abdullah@ajkhan.me",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now(),lat=-1.961540,lon=30.113753).put()
+		# Post(title="I dont want people near me to know",post="I am in rwanda",user_email="jdeng1234@gmail.com",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now(),lat=-1.961540,lon=30.113753, minDist=80).put()
+		self.response.write(0)
+		StoryParagraphs(text="I don't know how many meds I've taken in my life.",user="jdeng1234@gmail.com", post_time=datetime.datetime.now()).put()
+		StoryParagraphs(text="I was adopted when I was 2 or 3.",user="abdullah@ajkhan.me",post_time=datetime.datetime.now()).put()
+		StoryParagraphs(text="I don't really remember how my mom told me I had HIV or anything.",user="ljh239@cornell.edu",post_time=datetime.datetime.now()).put()
+		StoryParagraphs(text="I think I used drugs as a way to escape all the feelings that came with that.",user="acb257@cornell.edu",post_time=datetime.datetime.now()).put()
+		StoryParagraphs(text="But since then I've been sober for 3 years now.",user="amf272@cornell.edu",post_time=datetime.datetime.now()).put()
+		StoryParagraphs(text="Haters gonna hate right?",user="jdeng1234@gmail.com",post_time=datetime.datetime.now()).put()
 
 class BubbleData(KCAPage):
 	def get(self):
@@ -133,9 +139,28 @@ class BubbleData(KCAPage):
 		res = {"name":"flare","children":children}
 		self.response.write(json.dumps(res))
 
+class GetStory(KCAPage):
+	def get(self):
+		paragraphs = StoryParagraphs.query().order(-StoryParagraphs.post_time).fetch(4)
+		res = map(lambda x:x.text,paragraphs)
+		res = map(lambda x:x.strip(),res)
+		res.reverse()
+		ans = " "
+		for i in res:
+			ans+=i + " "
+		self.response.write(json.dumps(ans[:-1]))
+
+	def post(self):
+		return 0
+
+class GetExperts(KCAPage):
+	def get
+
 app = webapp2.WSGIApplication([
 	('/getPosts.json', GetPosts),
 	('/populateDB',populateDB),
 	('/bubbleData.json',BubbleData),
+	('/getStory.json',GetStory),
+	('/getExperts.json',GetExperts)
 
 ], debug=True)
