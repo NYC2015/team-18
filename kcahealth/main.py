@@ -39,6 +39,29 @@ class GetPosts(KCAPage):
 		res = json.dumps(zip(originalPosters,bodies,points,titles))
 		self.response.write(res)
 
+
+
+class populateDB(KCAPage):
+	def get(self):
+		# return 0
+	# 	user_email = ndb.StringProperty()
+	# is_expert = ndb.BooleanProperty(default=False)
+	# username = ndb.StringProperty()
+	# password = ndb.StringProperty()
+	# location = ndb.StringProperty()
+	# age = ndb.IntegerProperty()
+	# interests = ndb.JsonProperty()
+	# gender = ndb.StringProperty()
+		# populate users
+		# kca_user(user_email="abdullah@ajkhan.me",is_expert = True, username="Abdullah Khan", password="password",location="Uganda",age=21,gender="M").put()
+		# kca_user(user_email="acb257@cornell.edu",is_expert = True, username="Adam Bergere", password="password",location="Uganda",age=21,gender="M").put()
+		# kca_user(user_email="ljh239@cornell.edu",is_expert = True, username="Lydia Holley", password="password",location="",age=21,gender="F").put()
+		# kca_user(user_email="amf272@cornell.edu",is_expert = True, username="Aaron Ferber", password="password",location="Uganda",age=21,gender="M").put()
+		# kca_user(user_email="jdeng1234@gmail.com",is_expert = True, username="Jason Deng", password="password",location="",age=21,gender="M").put()
+
+		# populate messages
+		Post(title="Took my pills today",post="omg I'm so great",user_email="ljh239@cornell.edu",votes=5,)
+
 class GetCounts(KCAPage): 
 	def get(self):
 		location_dict = {}
@@ -47,5 +70,8 @@ class GetCounts(KCAPage):
 		self.response.write(json.dumps(location_dict))
 
 app = webapp2.WSGIApplication([
-	('/getPosts.json', GetPosts)
+	('/getPosts.json', GetPosts),
+	('/getCounts.json',GetCounts),
+	# ('/populateDB',populateDB),
+
 ], debug=True)
