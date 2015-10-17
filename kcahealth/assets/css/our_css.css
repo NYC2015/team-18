@@ -10,3 +10,15 @@
 	font-size: 200%;
 	color: pink;
 }
+
+.sign-up_form{
+	padding-top: 4em;
+	max-width: 50%;
+	margin: 0 auto;
+	padding-bottom: 4em;
+}
+
+@media (min-width: 300px) and (max-width: 960px) {
+	.sign-up_form {
+			max-width: 90%;
+		}
