@@ -19,6 +19,7 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 
 
+
 class KCAPage(webapp2.RequestHandler):
 	def proceed_with_user(self, ):
 		user = users.get_current_user()
@@ -28,8 +29,6 @@ class KCAPage(webapp2.RequestHandler):
 
 class GetPosts(KCAPage):
 	def get(self):
-
-
 		username = "hello"
 		post = "blah"
 
