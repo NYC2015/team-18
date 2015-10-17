@@ -19,6 +19,10 @@ handlers:
 - url: /images
   static_dir: images
 
+- url: /calendar.html
+  static_files: calendar.html
+  upload: calendar.html
+
 - url: .*
   script: main.app
 

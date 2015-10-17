@@ -25,6 +25,12 @@ class KCAPage(webapp2.RequestHandler):
 	def proceed_with_user(self, ):
 		user = users.get_current_user()
 		if not user:
+			self.redirect(users.create_login_url('/'))
+			# greeting = ('<a href="%s">Sign in or register</a>.' %
+                        # users.create_login_url('/'))
+			# self.response.out.write('''
+                # <html><body>%s %s id not authorized</body></html>'''
+                # % (greeting, umail))
 			return False
 		return True
 
@@ -34,7 +40,7 @@ class GetPosts(KCAPage):
 		bodies = ["body1","1234","qwer"]
 		originalPosters = ["aaron","Abdullah","Jason"]
 		points = [1,2,3]
-		post_list = map(lambda p:(GetUserFromEmail(p.user_email).username, p.post, len(p.upvotes)-len(p.downvotes), p.comments,p.title),Post.query().order(Post.post_time).fetch(5))
+		post_list = map(lambda p:(GetUserFromEmail(p.user_email).username, p.post, 0, p.comments,p.title),Post.query().order(Post.post_time).fetch(5))
 		res = json.dumps(post_list)
 		# res = json.dumps(zip(originalPosters,bodies,points,titles))
 		self.response.write(res)
@@ -60,14 +66,14 @@ class populateDB(KCAPage):
 		# kca_user(user_email="jdeng1234@gmail.com",is_expert = True, username="Jason Deng", password="password",location="",age=21,gender="M").put()
 
 		# populate messages
-		# upvotes = json.dumps(["abdullah@ajkhan.me","acb257@cornell.edu"])
-		# downvotes = json.dumps(["jdeng1234@gmail.com","amf272@cornell.edu"])
-		# comments = json.dumps([["jdeng1234@gmail.com","totally great"],["amf272@cornell.edu","this is awesome"]])
+		upvotes = json.dumps(["abdullah@ajkhan.me","acb257@cornell.edu"])
+		downvotes = json.dumps(["jdeng1234@gmail.com","amf272@cornell.edu"])
+		comments = json.dumps([["jdeng1234@gmail.com","totally great"],["amf272@cornell.edu","this is awesome"]])
 		# Post(title="Took my pills today",post="omg I'm so great",user_email="ljh239@cornell.edu",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now()).put()
 		# Post(title="So empowered",post="team 18 number 1",user_email="amf272@cornell.edu",upvotes=downvotes,downvotes=upvotes,comments=comments,post_time=datetime.datetime.now()).put()
 		# Post(title="I feel so depressed",post="not a good day",user_email="acb257@cornell.edu",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now()).put()
 		# Post(title="Bought a new sweater today",post="it is super warm",user_email="abdullah@ajkhan.me",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now()).put()
-		# Post(title="Im so delerious",post="super tired",user_email="jdeng1234@gmail.com",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now()).put()
+		Post(title="Hello",post="we are at code for good",user_email="jdeng1234@gmail.com",upvotes=upvotes,downvotes=downvotes,comments=comments,post_time=datetime.datetime.now()).put()
 		# self.response.write(p)
 
 class BubbleData(KCAPage):
