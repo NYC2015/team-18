@@ -9,6 +9,7 @@ class kca_user(ndb.Model):
 	age = ndb.IntegerProperty()
 	interests = ndb.JsonProperty()
 	gender = ndb.StringProperty()
+	bloodData = ndb.BlobProperty()
 
 #users to users
 class Message(ndb.Model):

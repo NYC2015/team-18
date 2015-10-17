@@ -34,7 +34,7 @@ class GetPosts(KCAPage):
 		bodies = ["body1","1234","qwer"]
 		originalPosters = ["aaron","Abdullah","Jason"]
 		points = [1,2,3]
-		post_list = map(lambda p:(GetUserFromEmail(p.user_email), p.post, p.votes, p.comments),Post.query().fetch(5))
+		post_list = map(lambda p:(GetUserFromEmail(p.user_email).username, p.post, len(p.upvotes)-len(p.downvotes), p.comments,p.title),Post.query().order(Post.post_time).fetch(5))
 		res = json.dumps(post_list)
 		# res = json.dumps(zip(originalPosters,bodies,points,titles))
 		self.response.write(res)
@@ -77,9 +77,22 @@ class GetCounts(KCAPage):
 			location_dict[loc.location] = 1+location_dict.get(loc.location,0)
 		self.response.write(json.dumps(location_dict))
 
+class BubbleData(KCAPage):
+	def get(self):
+		location_dict = {}
+		for loc in kca_user.query().fetch():
+			if loc.location == "":
+				loc.location = "Anonymous"
+			location_dict[loc.location] = 1+location_dict.get(loc.location,0)
+
+		children = map(lambda (k,v):{"name":"something","children":[{"name":k,"size":v}]},location_dict.iteritems())
+		res = {"name":"flare","children":children}
+		self.response.write(json.dumps(res))
+
 app = webapp2.WSGIApplication([
 	('/getPosts.json', GetPosts),
-	('/getCounts.json',GetCounts),
+	# ('/getCounts.json',GetCounts),
 	('/populateDB',populateDB),
+	('/bubbleData.json',BubbleData),
 
 ], debug=True)
