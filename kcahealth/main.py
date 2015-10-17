@@ -41,7 +41,10 @@ class GetPosts(KCAPage):
 
 class GetCounts(KCAPage): 
 	def get(self):
-		return True
+		location_dict = {}
+		for loc in kca_user.query().fetch(): 
+			location_dict[loc.location] = 1+location_dict.get(loc.location,0)
+		self.response.write(json.dumps(location_dict))
 
 app = webapp2.WSGIApplication([
 	('/getPosts.json', GetPosts)
