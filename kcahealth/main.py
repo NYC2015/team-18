@@ -33,8 +33,9 @@ class GetPosts(KCAPage):
 		bodies = ["asdf","1234","qwer"]
 		originalPosters = ["aaron","Abdullah","Jason"]
 		points = [1,2,3]
-		post_list = map(lambda p:(GetUserFromEmail(p.user_email), p.post, p.votes, p.comments),Post.query().fetch(5))
-		res = json.dumps(post_list)
+		# post_list = map(lambda p:(GetUserFromEmail(p.user_email), p.post, p.votes, p.comments),Post.query().fetch(5))
+		# res = json.dumps(post_list)
+		res = json.dumps(zip(bodies,originalPosters,points))
 		self.response.write(res)
 
 

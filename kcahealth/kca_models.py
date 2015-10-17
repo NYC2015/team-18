@@ -1,8 +1,8 @@
-from google.appengine.next import ndb
+from google.appengine.ext import ndb
 
 class kca_user(ndb.Model):
 	user_email = ndb.StringProperty()
-	is_expert = ndb.BooleanProperty(default=false)
+	is_expert = ndb.BooleanProperty(default=False)
 	username = ndb.StringProperty()
 	password = ndb.StringProperty()
 
