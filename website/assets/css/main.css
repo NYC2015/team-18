@@ -1662,8 +1662,8 @@
 	}
 
 		header.special:before, header.special:after {
-			border-bottom: solid 1.5px;
-			border-top: solid 1.5px;
+/*			border-bottom: solid 1.5px;
+			border-top: solid 1.5px;*/
 			content: '';
 			height: 7px;
 			opacity: 0.1;
@@ -2461,7 +2461,7 @@
 /* Main */
 
 	#main {
-		background-image: url("images/dark-tl.svg"), url("images/dark-tr.svg"), url("images/dark-bl.svg"), url("images/dark-br.svg");
+		/*background-image: url("images/dark-tl.svg"), url("images/dark-tr.svg"), url("images/dark-bl.svg"), url("images/dark-br.svg");*/
 		background-position: top left, top right, bottom left, bottom right;
 		background-repeat: no-repeat;
 		background-size: 25em;
@@ -2550,8 +2550,8 @@
 		/* Section/Article */
 
 			header.special {
-				padding-top: 5.5em;
-				margin-bottom: 4em;
+				padding-top: 3em;
+				margin-bottom: 3em;
 			}
 
 	}

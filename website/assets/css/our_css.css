@@ -2,3 +2,11 @@
 	background: none;
 }
 
+.special{
+	border-radius: 12px;
+}
+
+.glyphicon-heart-empty{
+	font-size: 200%;
+	color: pink;
+}
