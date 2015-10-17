@@ -20,9 +20,6 @@ from google.appengine.ext import ndb
 
 
 class KCAPage(webapp2.RequestHandler):
-<<<<<<< HEAD
->>>>>>> 18e8a5560cf88ce1232e5f4f0fd1e5f8031a4475
-
 	def proceed_with_user(self, ):
 		user = users.get_current_user()
 		if not user:
