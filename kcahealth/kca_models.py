@@ -14,3 +14,7 @@ class Message(ndb.Model):
     body = ndb.StringProperty()
 
 
+class Post(ndb.Model):
+	body = ndb.StringProperty()
+	originalPoster = ndb.StringProperty()
+	points = ndb.IntegerProperty()

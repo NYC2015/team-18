@@ -17,8 +17,7 @@
 import webapp2
 from google.appengine.api import users
 from google.appengine.ext import ndb
-
-
+import json
 
 class KCAPage(webapp2.RequestHandler):
 	def proceed_with_user(self, ):
@@ -29,11 +28,11 @@ class KCAPage(webapp2.RequestHandler):
 
 class GetPosts(KCAPage):
 	def get(self):
-		username = "hello"
-		post = "blah"
-
-
-		self.response.write("%s,%s"%(username,post))
+		bodies = ["asdf","1234","qwer"]
+		originalPosters = ["aaron","Abdullah","Jason"]
+		points = [1,2,3]
+		res = json.dumps(zip(bodies,originalPosters,points))
+		self.response.write(res)
 		
 
 app = webapp2.WSGIApplication([
