@@ -25,11 +25,6 @@ class KCAPage(webapp2.RequestHandler):
 		if not user:
 			return False
 		return True
-	def proceed_with_user(self):
-        user = users.get_current_user()
-        if not user:
-            return False
-        return True
 
 class GetPosts(KCAPage):
 	def get(self):
